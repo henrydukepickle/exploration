@@ -13,7 +13,7 @@ struct State {
     pos: Pos,
     inventory: Vec<Item>,
     event_state: Option<EventTree>,
-    stack: Vec<EventTree>,
+    stack: Vec<Action>,
     event: Option<Event>,
 }
 #[derive(Clone, Debug)]
@@ -73,6 +73,16 @@ mod input {
     }
 }
 
+impl EventTree {
+    fn get_node(&self, stack: &Vec<Action>) -> Result<EventTree, ()> {
+        let mut curr_tree = self.clone();
+        for act in stack {
+            curr_tree = curr_tree.sub.get(act).ok_or(())?.clone();
+        }
+        Ok(curr_tree)
+    }
+}
+
 impl Pos {
     fn bound(&self, max: u16) -> Pos {
         let m = max as i16;
@@ -123,7 +133,7 @@ impl Reality {
             match ev.sub.get(&act) {
                 None => {}
                 Some(sub) => {
-                    self.state.stack.push(ev.clone());
+                    self.state.stack.push(act);
                     *ev = sub.clone();
                 }
             }
@@ -147,7 +157,15 @@ impl Reality {
             .cloned()
     }
     fn back(&mut self) -> Option<EventTree> {
-        self.state.stack.pop()
+        self.state.stack.pop()?;
+        Some(
+            self.state
+                .event
+                .clone()?
+                .tree
+                .get_node(&self.state.stack)
+                .expect("FAILED"),
+        )
     }
     fn output(&self) {
         if let Some(ev) = &self.state.event_state {
