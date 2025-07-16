@@ -1,0 +1,144 @@
+event 2 0 {
+    preview "There is a small shrine. \n (f: investigate)"
+    tree {
+        text "You make out the text 'D O' on the shrine. The rest of the text is gone. \n (p: pray)"
+        tree "p" {
+            text "Who do you pray to?"
+            tree "dolbag" {
+                text "You notice a key. \n Come to think of it, the key was always there."
+                item {
+                    id 1
+                    name "key"
+                    type N
+                }
+            }
+        }
+    }
+}
+event 1 -2 {
+    preview "There is a gray man in the field. \n (f: investigate)"
+    tree {
+        text "The man asks you about the number in the ground. \n (d: look down)"
+        tree "d" {
+            text "There is not a number in the ground."
+        }
+        tree "67" {
+            text "There is a number in the ground. There is not a number in the sky."
+            tree "u" {
+                text "You look up. \n There is a number in the sky. \n The man shakes your hand and skips off. \n You got a lock. \n Come to think of it, you've always had this lock."
+                item {
+                    id 2
+                    name "lock"
+                    type N
+                }
+            }
+        }
+    }
+}
+event 3 3 {
+    preview "There is a door in the middle of a field. \n (f: investigate)"
+    tree {
+        text "The door is locked."
+        tree 1 {
+            text "There is a key, but no lock."
+            tree 2 {
+                text "The door opens. (Win Condition)"
+            }
+        }
+        tree 2 {
+            text "There is a lock, but no key."
+            tree 1 {
+                text "The door opens. (Win Condition)"
+            }
+        }
+    }
+}
+event -1 -1 {
+    preview "There is a hole in the ground. \n (f: investigate)"
+    tree {
+        text "You can just barely make out the bottom of the hole. \n (c: continue)"
+        tree "c" {
+            text "You can barely see. \n (c: continue)"
+            tree "c" {
+                text "You walk forwards, then turn right. \n (c: continue)"
+                tree "c" {
+                    text "You walk forwards, then turn right. \n (c: continue)"
+                    tree "c" {
+                        text "You walk forwards, then turn right. \n (c: continue)"
+                        tree "c" {
+                            text "You run forwards, then turn right. \n (c: continue)"
+                            tree "c" {
+                                text "You run forwards, then turn right. \n (c: continue)"
+                                tree "c" {
+                                    text "You run forwards. You run into the wall. A rock falls out of the ceiling."
+                                    item {
+                                        id 0
+                                        name "rock"
+                                        type N
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+event 0 -3 {
+    preview "There is an abandoned cabin. \n (f: investigate)"
+    tree {
+        text "There is a door and a window. \n (d: investigate door, w: investigate window)"
+        tree "d" {
+            text "The door won't budge."
+        }
+        tree "w" {
+            text "The window is intact. It seems unwise to break it with your hands."
+            tree 0 {
+                text "You break the window with the rock. \n (c: enter the cabin)"
+                tree "c" {
+                    text "You enter the cabin. How many fireplaces are there?"
+                    tree "0" {
+                        text "The room is dark."
+                    }
+                    tree "1" {
+                        text "The room is obscure."
+                    }
+                    tree "2" {
+                        text "The room is lit."
+                    }
+                    tree "3" {
+                        text "The room is bright."
+                    }
+                    tree "4" {
+                        text "The room is ablaze."
+                    }
+                    tree "5" {
+                        text "The room is gone."
+                    }
+                    tree "6" {
+                        text "The room is gone."
+                    }
+                    tree "7" {
+                        text "The room is gone."
+                    }
+                    tree "8" {
+                        text "The room is gone."
+                    }
+                    tree "9" {
+                        text "The room is gone."
+                    }
+                }
+            }
+        }
+    }
+}
+event 3 -1 {
+    preview "There is a bright field. \n (f: investigate)"
+    tree {
+        text "The sun beams overhead. \n (u: look up)"
+        tree "u" {
+            text "Why?"
+        }
+    }
+}
